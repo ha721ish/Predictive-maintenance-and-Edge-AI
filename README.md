@@ -1,2 +1,12 @@
 # Predictive-maintenance-and-Edge-AI
-To design and build a localized prototype that can accurately listen to the noise created by the drive motors and detect early-stage abnormalities to predict and prevent machine failures before they happen. 
+The project deploys a lightweight, compressed Artificial Intelligence model directly onto an  ESP32 microcontroller equipped with a digital I2S microphone. The system continuously listens to machine sounds, converts the raw audio into visual frequency maps (time domain to frequency domain) which results in a spectogram, and uses an integrated machine learning model to classify the sound. If an abnormal grinding or  sound profile is recognized, the chip instantly triggers a warning (like a buzzer or LED indicator or a notification) to the operators to perform maintenance.
+# Experimental Approach for PoC (Proof of Concept)
+Phase 1 - Audio Data Collection: Connect the I2S microphone (INMP441) to the ESP32 to record distinct, 1-second audio samples of a machine operating normally, operating under a simulated fault (e.g., a recorded friction sound), and general room background noise.
+Phase 2 - Signal Processing : Upload the raw audio data to the Edge Impulse studio platform. Apply a Fast Fourier Transform (FFT) block to translate the time-domain sound signals into  frequency spectrograms, making the high-frequency failure points visually distinct.
+Phase 3 - Model Architecture & Training: Train a simplified Neural Network  classifier on the spectrogram imagery. Apply 8-bit quantization to shrink the trained model size down to a fraction of its original size so it can safely fit within the ESP32’s limited RAM.
+Phase 4 - Hardware Integration & Deployment: Export the optimized model as an Arduino library. Flash the code onto the physical ESP32 chip alongside the peripheral logic code for the hardware warning indicators. Test the live  setup by playing abnormal sounds to verify that the LED or buzzer or notification trigger accurately in real-time.
+# Expected deliverables by end of the project
+(i)Functional Hardware Prototype: A fully wired breadboard circuit combining the ESP32 microcontroller, digital I2S microphone (INMP441), and emergency warning hardware (LED/Buzzer).
+(ii)Trained AI Model: An optimized, functional TinyML classifier deployed locally inside the microcontroller's flash memory.
+(iii)Source Code: A full Arduino IDE program including the I2S microphone stream configuration and conditional classification logic.
+(iv)Performance Evaluation Report:  A brief document showcasing the model’s classification accuracy scores and real-time response latency.
